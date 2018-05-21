@@ -39,4 +39,21 @@
         </div>
     </div>
 
+    <button id="HW">Run</button>
+
+    <asp:LinkButton ID="id_run" runat="server" OnClick="id_run_Click">Run</asp:LinkButton>
+    <asp:DropDownList ID="DropDownList1" runat="server">        
+    </asp:DropDownList>
+    <asp:GridView ID="GridView1" runat="server"></asp:GridView>
+    
+</asp:Content>
+
+<asp:Content ContentPlaceHolderID="cph_scripts" ID="scrips" runat="server">
+
+    <script type="text/javascript">
+
+        Hello();
+
+    </script>
+
 </asp:Content>

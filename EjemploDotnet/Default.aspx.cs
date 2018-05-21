@@ -13,5 +13,17 @@ namespace EjemploDotnet
         {
 
         }
+
+        protected void id_run_Click(object sender, EventArgs e)
+        {
+            var items = from a in DBModel.db.Dep
+                        select new ListItem() { Text = a.Name, Value = a.GroupName };
+
+            DropDownList1.Items.AddRange(items.ToArray());
+            DropDownList1.DataBind();
+
+            GridView1.DataSource=  DBModel.db.Dep;
+            GridView1.DataBind();
+        }
     }
 }
