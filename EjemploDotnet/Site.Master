@@ -81,5 +81,12 @@
             </footer>
         </div>
     </form>
+
+    <script type="text/javascript" src="Scripts/Ejemplo.js?v1.0"></script>
+
+    <asp:ContentPlaceHolder ID="cph_scripts" runat="server">
+
+    </asp:ContentPlaceHolder>
+    
 </body>
 </html>
