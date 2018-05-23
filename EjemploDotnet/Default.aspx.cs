@@ -16,8 +16,8 @@ namespace EjemploDotnet
 
         protected void id_run_Click(object sender, EventArgs e)
         {
-            var items = from a in DBModel.db.Dep
-                        select new ListItem() { Text = a.Name, Value = a.GroupName };
+            var items = (from a in DBModel.db.Dep
+                        select new ListItem() { Text = a.GroupName, Value = a.GroupName }).Distinct();
 
             DropDownList1.Items.AddRange(items.ToArray());
             DropDownList1.DataBind();
@@ -31,6 +31,13 @@ namespace EjemploDotnet
             DEPARTAMENTO[] data = DBModel.db.Dep.ToArray();
             
             return data;
+        }
+
+        protected void lbtn_animate_Click(object sender, EventArgs e)
+        {
+            lb_title.Text = txb_dato.Text;
+            lb_title.Attributes.Add("class", "animated infinite fadeOutDown");
+
         }
     }
 }
