@@ -2,54 +2,92 @@
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
 
-    <button id="HW" class="btn btn-default">Run JS</button>
+    <div>
 
-    <button onclick="CallItem()" class="btn btn-default">View Array</button>
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Home</a></li>
+            <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Profile</a></li>
+            <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Messages</a></li>
+            <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Settings</a></li>
+        </ul>
 
-    <asp:Button ID="Button1" runat="server" Text="Button" />
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="home">
 
-    <asp:LinkButton ID="id_run" runat="server" OnClick="id_run_Click" OnClientClick="AnimateEjm()" class="btn btn-default">Fill Gridview</asp:LinkButton>
+                <div>
 
-    <asp:DropDownList ID="DropDownList1" CssClass="form-control" runat="server">
-    </asp:DropDownList>
+                    <button id="HW" class="btn btn-default">Run JS</button>
 
-    <br />
-    <div class="panel panel-default">
-        <div class="panel-body">
-            <div class="table-responsive">
-                <asp:GridView ID="GridView1" runat="server" CssClass="table table-hover table-striped"></asp:GridView>
+                    <button onclick="CallItem()" class="btn btn-default">View Array</button>
+
+                    <asp:Button ID="Button1" runat="server" Text="Button" />
+
+                    <asp:LinkButton ID="id_run" runat="server" OnClick="id_run_Click" OnClientClick="AnimateEjm()" class="btn btn-default">Fill Gridview</asp:LinkButton>
+
+                    <asp:DropDownList ID="DropDownList1" CssClass="form-control" runat="server">
+                    </asp:DropDownList>
+
+                    <br />
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <div class="table-responsive">
+                                <asp:GridView ID="GridView1" runat="server" CssClass="table table-hover table-striped"></asp:GridView>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <div class="table-responsive">
+
+                                <table class="table table-hover table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Grp</th>
+                                            <th>Dep</th>
+                                            <th>Mod</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <%foreach (var x in Grupo())
+                                            { %>
+                                        <tr>
+                                            <td><%=x.Name%></td>
+                                            <td><%=x.GroupName%></td>
+                                            <td><%=x.DepartmentID%></td>
+                                            <td><%=x.ModifiedDate%></td>
+                                        </tr>
+                                        <%} %>
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
-        </div>
-    </div>
+            <div role="tabpanel" class="tab-pane" id="profile">
+                
+                <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+                    <ContentTemplate>
 
-    <div class="panel panel-default">
-        <div class="panel-body">
-            <div class="table-responsive">
+                        <asp:TextBox ID="txb_dato" runat="server" CssClass="form-control"></asp:TextBox>
+                        <asp:LinkButton ID="lbtn_animate" runat="server" CssClass="btn btn-default" OnClick="lbtn_animate_Click">Run</asp:LinkButton>
+                        <br />
+                        <asp:Label ID="lb_title" runat="server"></asp:Label>
 
-                <table class="table table-hover table-striped">
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Grp</th>
-                            <th>Dep</th>
-                            <th>Mod</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <%foreach (var x in Grupo())
-                            { %>
-                        <tr>
-                            <td><%=x.Name%></td>
-                            <td><%=x.GroupName%></td>
-                            <td><%=x.DepartmentID%></td>
-                            <td><%=x.ModifiedDate%></td>
-                        </tr>
-                        <%} %>
-                    </tbody>
-                </table>
+                    </ContentTemplate>
+                </asp:UpdatePanel>                
 
             </div>
+            <div role="tabpanel" class="tab-pane" id="messages">...</div>
+            <div role="tabpanel" class="tab-pane" id="settings">...</div>
         </div>
+
     </div>
 
 </asp:Content>
@@ -59,7 +97,7 @@
     <script type="text/javascript">
 
         Hello();
-        
+
         function CallItem() {
 
             <%foreach (var x in Grupo())
