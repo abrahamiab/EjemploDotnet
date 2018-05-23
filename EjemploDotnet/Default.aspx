@@ -2,50 +2,56 @@
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
 
-    <div class="jumbotron">
-        <h1>ASP.NET</h1>
-        <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS, and JavaScript.</p>
-        <p><a href="http://www.asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-    </div>
+    <button id="HW" class="btn btn-default">Run JS</button>
 
-    <div class="row">
-        <div class="col-md-4">
-            <h2>Getting started</h2>
-            <p>
-                ASP.NET Web Forms lets you build dynamic websites using a familiar drag-and-drop, event-driven model.
-            A design surface and hundreds of controls and components let you rapidly build sophisticated, powerful UI-driven sites with data access.
-            </p>
-            <p>
-                <a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301948">Learn more &raquo;</a>
-            </p>
-        </div>
-        <div class="col-md-4">
-            <h2>Get more libraries</h2>
-            <p>
-                NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.
-            </p>
-            <p>
-                <a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301949">Learn more &raquo;</a>
-            </p>
-        </div>
-        <div class="col-md-4">
-            <h2>Web Hosting</h2>
-            <p>
-                You can easily find a web hosting company that offers the right mix of features and price for your applications.
-            </p>
-            <p>
-                <a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301950">Learn more &raquo;</a>
-            </p>
-        </div>
-    </div>
+    <button onclick="CallItem()" class="btn btn-default">View Array</button>
 
-    <button id="HW">Run</button>
+    <asp:Button ID="Button1" runat="server" Text="Button" />
 
-    <asp:LinkButton ID="id_run" runat="server" OnClick="id_run_Click">Run</asp:LinkButton>
-    <asp:DropDownList ID="DropDownList1" runat="server">        
+    <asp:LinkButton ID="id_run" runat="server" OnClick="id_run_Click" OnClientClick="AnimateEjm()" class="btn btn-default">Fill Gridview</asp:LinkButton>
+
+    <asp:DropDownList ID="DropDownList1" CssClass="form-control" runat="server">
     </asp:DropDownList>
-    <asp:GridView ID="GridView1" runat="server"></asp:GridView>
-    
+
+    <br />
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="table-responsive">
+                <asp:GridView ID="GridView1" runat="server" CssClass="table table-hover table-striped"></asp:GridView>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="table-responsive">
+
+                <table class="table table-hover table-striped">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Grp</th>
+                            <th>Dep</th>
+                            <th>Mod</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <%foreach (var x in Grupo())
+                            { %>
+                        <tr>
+                            <td><%=x.Name%></td>
+                            <td><%=x.GroupName%></td>
+                            <td><%=x.DepartmentID%></td>
+                            <td><%=x.ModifiedDate%></td>
+                        </tr>
+                        <%} %>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+
 </asp:Content>
 
 <asp:Content ContentPlaceHolderID="cph_scripts" ID="scrips" runat="server">
@@ -53,6 +59,16 @@
     <script type="text/javascript">
 
         Hello();
+        
+        function CallItem() {
+
+            <%foreach (var x in Grupo())
+        {%>
+
+            alert('<%=x.GroupName%>');
+
+            <%}%>
+        }
 
     </script>
 
