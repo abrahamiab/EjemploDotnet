@@ -22,8 +22,15 @@ namespace EjemploDotnet
             DropDownList1.Items.AddRange(items.ToArray());
             DropDownList1.DataBind();
 
-            GridView1.DataSource=  DBModel.db.Dep;
+            GridView1.DataSource =  DBModel.db.Dep;
             GridView1.DataBind();
+        }
+
+        public DEPARTAMENTO[] Grupo()
+        {
+            DEPARTAMENTO[] data = DBModel.db.Dep.ToArray();
+            
+            return data;
         }
     }
 }
