@@ -16,62 +16,70 @@
         <div class="tab-content">
             <div role="tabpanel" class="tab-pane active" id="home">
 
-                <div>
+                <asp:UpdatePanel ID="up_tab1" runat="server">
+                    <ContentTemplate>
 
-                    <button id="HW" class="btn btn-default">Run JS</button>
+                        <div>
 
-                    <button onclick="CallItem()" class="btn btn-default">View Array</button>
+                            <button id="HW" class="btn btn-default">Run JS</button>
 
-                    <asp:Button ID="Button1" runat="server" Text="Button" />
+                            <button onclick="CallItem()" class="btn btn-default">View Array</button>
 
-                    <asp:LinkButton ID="id_run" runat="server" OnClick="id_run_Click" OnClientClick="AnimateEjm()" class="btn btn-default">Fill Gridview</asp:LinkButton>
+                            <asp:Button ID="Button1" runat="server" Text="Button" />
 
-                    <asp:DropDownList ID="DropDownList1" CssClass="form-control" runat="server">
-                    </asp:DropDownList>
+                            <asp:LinkButton ID="id_run" runat="server" OnClick="id_run_Click" OnClientClick="AnimateEjm()" class="btn btn-default">Fill Gridview</asp:LinkButton>
 
-                    <br />
-                    <div class="panel panel-default">
-                        <div class="panel-body">
-                            <div class="table-responsive">
-                                <asp:GridView ID="GridView1" runat="server" CssClass="table table-hover table-striped"></asp:GridView>
+                            <asp:DropDownList ID="DropDownList1" CssClass="form-control" AutoPostBack="true" runat="server" OnSelectedIndexChanged="DropDownList1_SelectedIndexChanged">
+                            </asp:DropDownList>
+
+                            <h3 class="animated infinite <%= DropDownList1.SelectedItem.Value%>"><%=DropDownList1.SelectedItem.Text%></h3>
+
+                            <br />
+                            <div class="panel panel-default">
+                                <div class="panel-body">
+                                    <div class="table-responsive">
+                                        <asp:GridView ID="GridView1" runat="server" GridLines="None" CssClass="table table-hover table-striped"></asp:GridView>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="panel panel-default" style="display: none">
+                                <div class="panel-body">
+                                    <div class="table-responsive">
+
+                                        <table class="table table-hover table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>Name</th>
+                                                    <th>Grp</th>
+                                                    <th>Dep</th>
+                                                    <th>Mod</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <%foreach (var x in Grupo())
+                                                    { %>
+                                                <tr>
+                                                    <td><%=x.Name%></td>
+                                                    <td><%=x.GroupName%></td>
+                                                    <td><%=x.DepartmentID%></td>
+                                                    <td><%=x.ModifiedDate%></td>
+                                                </tr>
+                                                <%} %>
+                                            </tbody>
+                                        </table>
+
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="panel panel-default">
-                        <div class="panel-body">
-                            <div class="table-responsive">
-
-                                <table class="table table-hover table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th>Name</th>
-                                            <th>Grp</th>
-                                            <th>Dep</th>
-                                            <th>Mod</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <%foreach (var x in Grupo())
-                                            { %>
-                                        <tr>
-                                            <td><%=x.Name%></td>
-                                            <td><%=x.GroupName%></td>
-                                            <td><%=x.DepartmentID%></td>
-                                            <td><%=x.ModifiedDate%></td>
-                                        </tr>
-                                        <%} %>
-                                    </tbody>
-                                </table>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                    </ContentTemplate>
+                </asp:UpdatePanel>
 
             </div>
             <div role="tabpanel" class="tab-pane" id="profile">
-                
+
                 <asp:UpdatePanel ID="UpdatePanel1" runat="server">
                     <ContentTemplate>
 
@@ -81,7 +89,7 @@
                         <asp:Label ID="lb_title" runat="server"></asp:Label>
 
                     </ContentTemplate>
-                </asp:UpdatePanel>                
+                </asp:UpdatePanel>
 
             </div>
             <div role="tabpanel" class="tab-pane" id="messages">...</div>
