@@ -3,6 +3,7 @@
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
 
     <div>
+        <%-- Comentario prueba --%>
 
         <!-- Nav tabs -->
         <ul class="nav nav-tabs" role="tablist">
