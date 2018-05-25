@@ -25,7 +25,7 @@ namespace EjemploDotnet
     [Table(Name = "HumanResources.Department")]
     public class DEPARTAMENTO
     {
-        [Column(IsPrimaryKey = true, CanBeNull = false,DbType = "smallint")]
+        [Column(IsPrimaryKey = true, IsDbGenerated = true,CanBeNull = false,DbType = "smallint")]
         public int DepartmentID { get; set; }
         [Column(DbType = "nvarchar(50)")]
         public string Name { get; set; }
