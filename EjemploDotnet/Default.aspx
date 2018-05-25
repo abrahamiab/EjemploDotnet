@@ -2,6 +2,8 @@
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
 
+    <br />
+
     <div>
         <%-- Comentario prueba --%>
         <%-- Comentario prueba dos --%>
@@ -94,7 +96,34 @@
                 </asp:UpdatePanel>
 
             </div>
-            <div role="tabpanel" class="tab-pane" id="messages">...</div>
+            <div role="tabpanel" class="tab-pane" id="messages">
+
+                <asp:UpdatePanel ID="up_formulario" runat="server">
+                    <ContentTemplate>
+                        <br />
+                        <asp:TextBox ID="txb_name" runat="server" CssClass="form-control"></asp:TextBox>
+                        <asp:DropDownList ID="ddl_grp" runat="server" CssClass="form-control"></asp:DropDownList>
+
+
+                        <asp:LinkButton ID="lbtn_add" runat="server" CssClass="btn btn-default" OnClick="lbtn_add_Click">
+                            <i class="fa fa-plus" aria-hidden="true"></i>
+                        </asp:LinkButton>
+                        <asp:LinkButton ID="lbtn_save" runat="server" CssClass="btn btn-primary" OnClick="lbtn_save_Click">
+                            <i class="fa fa-floppy-o" aria-hidden="true"></i>
+                        </asp:LinkButton>
+                        <asp:LinkButton ID="lbtn_refresh" runat="server" CssClass="btn btn-info" OnClick="lbtn_refresh_Click">
+                            <i class="fa fa-refresh" aria-hidden="true"></i>
+                        </asp:LinkButton>
+
+                        <br />
+
+                        <asp:GridView ID="id_gvreg" runat="server" GridLines="None" CssClass="table table-hover table-striped"></asp:GridView>
+
+                    </ContentTemplate>
+                </asp:UpdatePanel>
+
+
+            </div>
             <div role="tabpanel" class="tab-pane" id="settings">...</div>
         </div>
 

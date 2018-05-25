@@ -14,18 +14,13 @@ namespace EjemploDotnet
             if (!IsPostBack)
             {
                 FillDddl();
+                FillGridview();
             }
         }
 
         protected void id_run_Click(object sender, EventArgs e)
         {
-            GridView1.DataSource = from a in DBModel.db.Dep
-                                   where a.GroupName == DropDownList1.SelectedItem.Value
-                                   select a;
-            GridView1.DataBind();
-
-            GridView1.HeaderRow.TableSection = TableRowSection.TableHeader;
-
+            FillGridview();
         }
 
         public DEPARTAMENTO[] Grupo()
@@ -39,18 +34,11 @@ namespace EjemploDotnet
         {
             lb_title.Text = txb_dato.Text;
             lb_title.Attributes.Add("class", "animated infinite fadeOutDown");
-
         }
 
         protected void DropDownList1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            GridView1.DataSource = from a in DBModel.db.Dep
-                                   where a.GroupName == DropDownList1.SelectedItem.Text
-                                   select a;
-            GridView1.DataBind();
-
-            GridView1.HeaderRow.TableSection = TableRowSection.TableHeader;
-
+            FillGridview();
         }
 
         void FillDddl()
@@ -71,8 +59,56 @@ namespace EjemploDotnet
             DropDownList1.Items.AddRange(items.ToArray());
             DropDownList1.DataBind();
 
+            items = (dynamic)null;
+
+            items = (from a in DBModel.db.Dep.ToList()                     
+                     select new ListItem() { Text = a.GroupName, Value = a.GroupName }).Distinct();
+
+            ddl_grp.Items.AddRange(items.ToArray());
+            ddl_grp.DataBind();
         }
 
+        void FillGridview()
+        {
+            GridView1.DataSource = from a in DBModel.db.Dep
+                                   where a.GroupName == DropDownList1.SelectedItem.Text
+                                   select a;
+            GridView1.DataBind();
+
+            GridView1.HeaderRow.TableSection = TableRowSection.TableHeader;
+
+            id_gvreg.DataSource= from a in DBModel.db.Dep
+                                  where a.GroupName == ddl_grp.SelectedItem.Text
+                                  select a;
+            id_gvreg.DataBind();
+            
+            id_gvreg.HeaderRow.TableSection = TableRowSection.TableHeader;
+        }
+
+        protected void lbtn_add_Click(object sender, EventArgs e)
+        {
+            DEPARTAMENTO item = new DEPARTAMENTO() {
+                Name = txb_name.Text,
+                GroupName = ddl_grp.SelectedItem.Value,
+                ModifiedDate = DateTime.Now
+            };
+
+            DBModel.db.Dep.InsertOnSubmit(item);
+
+            DBModel.db.SubmitChanges();
+
+            FillGridview();
+        }
+
+        protected void lbtn_refresh_Click(object sender, EventArgs e)
+        {
+            FillGridview();
+        }
+
+        protected void lbtn_save_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 
     class Items
