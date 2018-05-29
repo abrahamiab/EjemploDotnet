@@ -139,6 +139,15 @@ namespace EjemploDotnet {
         protected global::System.Web.UI.WebControls.LinkButton lbtn_save;
         
         /// <summary>
+        /// lbtn_edit control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lbtn_edit;
+        
+        /// <summary>
         /// lbtn_refresh control.
         /// </summary>
         /// <remarks>

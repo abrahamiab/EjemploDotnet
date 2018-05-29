@@ -61,7 +61,7 @@ namespace EjemploDotnet
 
             items = (dynamic)null;
 
-            items = (from a in DBModel.db.Dep.ToList()                     
+            items = (from a in DBModel.db.Dep.ToList()
                      select new ListItem() { Text = a.GroupName, Value = a.GroupName }).Distinct();
 
             ddl_grp.Items.AddRange(items.ToArray());
@@ -77,18 +77,19 @@ namespace EjemploDotnet
 
             GridView1.HeaderRow.TableSection = TableRowSection.TableHeader;
 
-            id_gvreg.DataSource= from a in DBModel.db.Dep
+            id_gvreg.DataSource = from a in DBModel.db.Dep
                                   where a.GroupName == ddl_grp.SelectedItem.Text
                                   select a;
             id_gvreg.DataBind();
-            
+
             id_gvreg.HeaderRow.TableSection = TableRowSection.TableHeader;
         }
 
         protected void lbtn_add_Click(object sender, EventArgs e)
         {
-            DEPARTAMENTO item = new DEPARTAMENTO() {
-                Name = txb_name.Text,
+            DEPARTAMENTO item = new DEPARTAMENTO()
+            {
+                Name = txb_name.Text.Trim(),
                 GroupName = ddl_grp.SelectedItem.Value,
                 ModifiedDate = DateTime.Now
             };
@@ -107,6 +108,37 @@ namespace EjemploDotnet
 
         protected void lbtn_save_Click(object sender, EventArgs e)
         {
+            var update = (from a in DBModel.db.Dep.ToList()
+                          where a.DepartmentID == int.Parse(txb_name.Attributes["aria-label"])
+                          select a).Select(a => { a.Name = txb_name.Text; a.GroupName = ddl_grp.SelectedItem.Value; return true; }).ToList();
+
+            DBModel.db.SubmitChanges();
+
+            txb_name.Text = "";
+            txb_name.Attributes.Remove("aria-label");
+
+            FillGridview();
+
+        }
+
+
+        protected void lbtn_edit_Click(object sender, EventArgs e)
+        {
+            id_gvreg.AutoGenerateSelectButton = true;
+
+            FillGridview();
+        }
+
+        protected void id_gvreg_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            GridView gv = (GridView)sender;
+
+            GridViewRow row = gv.SelectedRow;
+
+            txb_name.Text = row.Cells[2].Text.Trim();
+            txb_name.Attributes.Add("aria-label", row.Cells[1].Text);
+
+            gv.HeaderRow.TableSection = TableRowSection.TableHeader;
 
         }
     }
