@@ -110,7 +110,7 @@ namespace EjemploDotnet
         {
             var update = (from a in DBModel.db.Dep.ToList()
                           where a.DepartmentID == int.Parse(txb_name.Attributes["aria-label"])
-                          select a).Select(a => { a.Name = txb_name.Text; a.GroupName = ddl_grp.SelectedItem.Value; return true; }).ToList();
+                          select a).Select(a => { a.Name = txb_name.Text.Trim(); a.GroupName = ddl_grp.SelectedItem.Value; return true; }).ToList();
 
             DBModel.db.SubmitChanges();
 
@@ -141,6 +141,81 @@ namespace EjemploDotnet
             gv.HeaderRow.TableSection = TableRowSection.TableHeader;
 
         }
+
+        void Uniones(int dato)
+        {
+
+            var join = (dynamic)null;
+
+            int v1;             
+            DateTime v2;
+
+            switch (dato)
+            {
+                case 1:
+
+                    join = from a in DBModel.db.Dep
+                           join b in DBModel.db.TABL_DEPHISTORY on a.DepartmentID equals b.DepartmentID
+                           select new
+                           {
+                               a.DepartmentID,
+                               a.Name,
+                               a.GroupName,
+                               b.StartDate,
+                               b.ModifiedDate,
+                               b.EndDate
+                           };
+
+                    break;
+                case 2:
+
+                    join = from a in DBModel.db.Dep
+                           join tb in DBModel.db.TABL_DEPHISTORY on a.DepartmentID equals tb.DepartmentID into jb
+                           from b in jb.DefaultIfEmpty()
+                           where b == null
+                           select new
+                           {
+                               DepartmentID = int.TryParse(a.DepartmentID.ToString(), out v1) ? v1 : (int?)null,
+                               a.Name,
+                               a.GroupName,
+                               StartDate = DateTime.TryParse(b.StartDate.ToString(), out v2) ? v2 : (DateTime?)null,
+                               ModifiedDate = DateTime.TryParse(b.ModifiedDate.ToString(), out v2) ? v2 : (DateTime?)null,
+                               b.EndDate
+                           };
+
+                    break;
+                case 3:
+
+                    join = from a in DBModel.db.TABL_DEPHISTORY
+                           join tb in DBModel.db.Dep on a.DepartmentID equals tb.DepartmentID into jb
+                           from b in jb.DefaultIfEmpty()
+                           where b == null
+                           select new
+                           {
+                               DepartmentID = int.TryParse(b.DepartmentID.ToString(), out v1) ? v1 : (int?)null,
+                               b.Name,
+                               b.GroupName,
+                               StartDate = DateTime.TryParse(a.StartDate.ToString(), out v2) ? v2 : (DateTime?)null,
+                               ModifiedDate = DateTime.TryParse(a.ModifiedDate.ToString(), out v2) ? v2 : (DateTime?)null,
+                               a.EndDate
+                           };
+
+                    break;
+
+            }
+
+            gv_joins.DataSource = join;
+            gv_joins.DataBind();
+
+            if (gv_joins.Rows.Count != 0)
+                gv_joins.HeaderRow.TableSection = TableRowSection.TableHeader;
+        }
+
+        protected void lbtn_join_run_Click(object sender, EventArgs e)
+        {
+            Uniones(int.Parse(ddl_select_join.SelectedItem.Value));
+        }
+
     }
 
     class Items
