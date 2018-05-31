@@ -1,7 +1,7 @@
 ﻿<%@ Page Title="Home Page" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="EjemploDotnet._Default" %>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
-
+    <br />
     <div>
         <%-- Comentario prueba --%>
         <%-- Comentario Dos --%>
@@ -122,7 +122,32 @@
                     </ContentTemplate>
                 </asp:UpdatePanel>
             </div>
-            <div role="tabpanel" class="tab-pane" id="settings">...</div>
+            <div role="tabpanel" class="tab-pane" id="settings">
+                <br />
+                <asp:UpdatePanel ID="up_joins" runat="server">
+                    <ContentTemplate>
+
+                        <div class="row">
+                            <div class="col-md-3">
+                                <asp:DropDownList ID="ddl_select_join" runat="server" CssClass="form-control">
+                                    <asp:ListItem Text="INNER JOIN" Value="1" />
+                                    <asp:ListItem Text="LEFT JOIN" Value="2" />
+                                    <asp:ListItem Text="RIGHT JOIN" Value="3" />
+                                </asp:DropDownList>
+                            </div>
+                            <div class="col-md-1">
+                                <asp:LinkButton ID="lbtn_join_run" runat="server" CssClass="btn btn-primary" OnClick="lbtn_join_run_Click">
+                                <i class="fa fa-bolt" aria-hidden="true"></i>
+                                </asp:LinkButton>
+                            </div>
+                        </div>
+                        <br />
+                        <asp:GridView ID="gv_joins" runat="server" GridLines="None" CssClass="table table-hover table-striped"></asp:GridView>
+
+                    </ContentTemplate>
+                </asp:UpdatePanel>
+
+            </div>
         </div>
 
     </div>
