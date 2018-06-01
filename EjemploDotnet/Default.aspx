@@ -1,5 +1,8 @@
 ﻿<%@ Page Title="Home Page" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="EjemploDotnet._Default" %>
 
+<%@ Register Src="~/Controls/HighchartsControl.ascx" TagPrefix="uc1" TagName="HighchartsControl" %>
+
+
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
     <br />
     <div>
@@ -12,6 +15,7 @@
             <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Profile</a></li>
             <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Messages</a></li>
             <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Settings</a></li>
+            <li role="presentation"><a href="#chart" aria-controls="chart" role="tab" data-toggle="tab">Chart</a></li>
         </ul>
 
         <!-- Tab panes -->
@@ -148,9 +152,17 @@
                 </asp:UpdatePanel>
 
             </div>
+            <div role="tabpanel" class="tab-pane" id="chart">
+
+                <uc1:HighchartsControl runat="server" ID="HighchartsControl" />
+
+            </div>
         </div>
 
     </div>
+
+
+
 
 </asp:Content>
 
